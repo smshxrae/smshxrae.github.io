@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Embedded Search</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Belanosima&family=Rubik+Vinyl&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Belanosima', sans-serif;
+            background-color: #E9F1FF;
+            overflow-y: scroll;
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 180px;
+            gap: 40px;
+        }
+
+        .spectacledcoder-search-bar {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            border-radius: 0% 30px 30px 30px;
+            transition: width 0.5s ease;
+            box-shadow: 5px 5px 20px #d8e6fd, -5px -5px 30px white;
+            position: fixed;
+            top: 40px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            z-index: 10;
+            padding: 0 10px;
+        }
+
+        .spectacledcoder-search-bar:hover {
+            width: 400px;
+        }
+
+        .search-icon {
+            background-color: #E9F1FF;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .spectacledcoder-search-input {
+            flex: 1;
+            margin-left: 10px;
+            display: none;
+            outline: none;
+            border: none;
+            font-family: 'Belanosima', sans-serif;
+            border-radius: 25px;
+            padding-left: 10px;
+            height: 70%;
+            background-color: transparent;
+        }
+
+        .spectacledcoder-search-bar:hover .spectacledcoder-search-input {
+            display: inline-flex;
+        }
+
+        .content {
+            width: 90%;
+            max-width: 1000px;
+            height: 600px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        @media (max-width: 600px) {
+            .spectacledcoder-search-bar {
+                width: 60px;
+            }
+
+            .spectacledcoder-search-bar:hover {
+                width: 80%;
+                border-radius: 0% 30px 30px 15px;
+            }
+
+            .content {
+                height: 400px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Quizlet_Logo.svg/1024px-Quizlet_Logo.svg.png' height=30px>
+
+    <div class="spectacledcoder-search-bar">
+        <img class="search-icon" width="30" height="30" src="https://img.icons8.com/sf-black/500/000000/search.png" alt="search"/>
+        <input type="text" name="search" placeholder="" class="spectacledcoder-search-input" autocomplete="on"/>
+    </div>
+
+    <div class="page-container">
+        <div class="content" id="iframeContainer">
+            <!-- iframe will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.querySelector('.spectacledcoder-search-input');
+        const contentDiv = document.getElementById('iframeContainer');
+
+        searchInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const url = searchInput.value.trim();
+
+                if (url) {
+                    contentDiv.innerHTML = '';
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://quizlet.com/'+url+'/test/embed?answerTermSides=6&promptTermSides=6&questionCount=20&questionTypes=4&showImages=true'
+                    contentDiv.appendChild(iframe);
+                }
+            }
+        });
+    </script>
+    <center><p class="disclaimer">Created by <b>smshxrae</b> | <a href="https://github.com/smshxrae" target="_blank">smshxrae</a></p>
+</body>
+</html>
